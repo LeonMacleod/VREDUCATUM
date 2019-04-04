@@ -8,14 +8,16 @@ public class LineAxisManager : MonoBehaviour {
     public LineRenderer xAxis;
     public LineRenderer yAxis;
     public LineRenderer zAxis;
+    public LineRenderer Function;
+ 
 
     private void RenderAxis()
     {
 
       
-        xAxis.positionCount = 200;
-        yAxis.positionCount = 200;
-        zAxis.positionCount = 200;
+        xAxis.positionCount = height;
+        yAxis.positionCount = height;
+        zAxis.positionCount = height;
 
         Vector3[] xPositions = new Vector3[height];
         Vector3[] yPositions = new Vector3[height];
@@ -26,8 +28,8 @@ public class LineAxisManager : MonoBehaviour {
         yAxis.startColor = Color.blue;
         zAxis.startColor = Color.green;
 
-
-        for (int i = -(height/2); i < (height/2); i++)
+        //+1 added to ensure whole axis is full.
+        for (int i = -(height/2); i < (height/2) + 1; i++)
         {
             //adjusting for a negative i value
             int realIndex = i + (height / 2);
@@ -55,7 +57,23 @@ public class LineAxisManager : MonoBehaviour {
 
     private void RenderFunction()
     {
-        Debug.Log("Render Function Running");
+		int halfHeight = (height / 2);
+        Function.positionCount = height;
+
+		Vector3[] functionPositions = new Vector3[height];
+
+        for (int o = 0; o < height; o++)
+        {
+            Vector3 toRender = xAxis.GetPosition(o);
+            //toRender.y = 3 * (toRender.x * toRender.x);
+            toRender.y = Mathf.Cos(toRender.x);
+
+
+            Debug.Log(o);
+            Function.SetPosition(o, toRender);
+
+
+        }
 
     }
 
@@ -64,6 +82,7 @@ public class LineAxisManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         RenderAxis();
+		RenderFunction();
 	}
 	
 	// Update is called once per frame
