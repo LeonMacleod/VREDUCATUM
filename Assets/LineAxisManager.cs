@@ -58,11 +58,41 @@ public class LineAxisManager : MonoBehaviour {
     private void RenderFunction()
     {
 		int halfHeight = (height / 2);
-        Function.positionCount = height;
+
+        float increment = 0.1f;
+        float incrementHeight = height / increment;
+        Debug.Log(incrementHeight);
+        Debug.Log(-(incrementHeight / 2));
+        Debug.Log(incrementHeight / 2);
+
+        Function.positionCount = (int) incrementHeight;
+
+        int incrementCounter = -1;
+
 
 		Vector3[] functionPositions = new Vector3[height];
 
-        for (int o = 0; o < height; o++)
+        for (float i = -(height/2); i < (height / 2) + 1; i += increment)
+        {
+            incrementCounter += 1;
+
+            Debug.Log(" for position:" + i + " incrementcounter position: " + incrementCounter);
+  
+
+            Vector3 toRender = new Vector3(i, 0, 0);
+            toRender.y = 2 * Mathf.Cos(toRender.x);
+
+            Function.SetPosition(incrementCounter, toRender);
+
+        }
+
+
+
+
+
+        //old
+
+        /*for (int o = 0; o < height; o++)
         {
             Vector3 toRender = xAxis.GetPosition(o);
             //toRender.y = 3 * (toRender.x * toRender.x);
@@ -73,7 +103,7 @@ public class LineAxisManager : MonoBehaviour {
             Function.SetPosition(o, toRender);
 
 
-        }
+        }*/
 
     }
 
