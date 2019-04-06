@@ -76,6 +76,10 @@ public class LineAxisManager : MonoBehaviour {
             string positionTextx = xPositions[i].x.ToString();
             labelx.text = positionTextx;
 
+            Vector3 newPos = labelx.transform.position;
+            newPos.y -= 0.25f;
+            labelx.transform.position = newPos;
+
             Instantiate(labelx, labelx.transform.position, labelx.transform.rotation);
         }
 
@@ -89,6 +93,10 @@ public class LineAxisManager : MonoBehaviour {
             string positionTexty = yPositions[i].y.ToString();
             labely.text = positionTexty;
 
+            Vector3 newPos = labely.transform.position;
+            newPos.x -= 0.25f;
+            labely.transform.position = newPos;
+
             Instantiate(labely, labely.transform.position, labely.transform.rotation);
         }
 
@@ -101,6 +109,10 @@ public class LineAxisManager : MonoBehaviour {
 
             string positionTextz = zPositions[i].z.ToString();
             labelz.text = positionTextz;
+
+            Vector3 newPos = labelz.transform.position;
+            newPos.y -= 0.25f;
+            labelz.transform.position = newPos;
 
             Instantiate(labelz, labelz.transform.position, labelz.transform.rotation);
         }
@@ -137,7 +149,7 @@ public class LineAxisManager : MonoBehaviour {
   
 
             Vector3 toRender = new Vector3(i, 0, 0);
-            toRender.y = 2 * Mathf.Cos(toRender.x);
+            toRender.y = Mathf.Cos(toRender.x);
 
 
             Function.SetPosition(incrementCounter, toRender);
