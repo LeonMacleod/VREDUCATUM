@@ -17,6 +17,12 @@ public class LineAxisManager : MonoBehaviour {
 
     public TextMeshPro defaultLabel;
 
+
+    public float amplitude;
+    public float yShift;
+    public float xShift;
+    public float B = 1;
+
     private void RenderAxis()
     {
 
@@ -137,7 +143,7 @@ public class LineAxisManager : MonoBehaviour {
   
 
             Vector3 toRender = new Vector3(i, 0, 0);
-            toRender.y = Mathf.Cos(toRender.x);
+            toRender.y = amplitude * Mathf.Cos(B * i + xShift) + yShift;
 
 
             Function.SetPosition(incrementCounter, toRender);
@@ -149,13 +155,81 @@ public class LineAxisManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         RenderAxis();
-		RenderFunction();
+		
 
         RenderLabels();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        //amplitude controller
+
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            amplitude += 0.1f;
+            RenderFunction();
+        }
+
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            amplitude -= 0.1f;
+            RenderFunction();
+        }
+
+        //yShift controller
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            yShift += 0.1f;
+            RenderFunction();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            yShift -= 0.1f;
+            RenderFunction();
+        }
+
+        //xShift controller
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            xShift += 0.25f;
+            RenderFunction();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            xShift -= 0.25f;
+            RenderFunction();
+        }
+
+        //cycles per 2pi controller
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            B += 0.25f;
+            RenderFunction();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            B -= 0.25f;
+            RenderFunction();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 }

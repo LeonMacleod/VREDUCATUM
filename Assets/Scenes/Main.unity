@@ -1009,6 +1009,10 @@ MonoBehaviour:
   zAxis: {fileID: 226746605}
   Function: {fileID: 745101595}
   defaultLabel: {fileID: 1268562239}
+  amplitude: 0
+  yShift: 0
+  xShift: 0
+  B: 1
 --- !u!4 &1808891606
 Transform:
   m_ObjectHideFlags: 0
