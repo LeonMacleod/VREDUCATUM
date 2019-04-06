@@ -45,18 +45,9 @@ public class LineAxisManager : MonoBehaviour {
 
         }
 
-
         xAxis.SetPositions(xPositions);
         yAxis.SetPositions(yPositions);
         zAxis.SetPositions(zPositions);
-
-
-        // debug
-        /*foreach (Vector3 pos in positions)
-        {
-            Debug.Log(pos.ToString());
-
-        }*/
 
     }
 
@@ -121,9 +112,6 @@ public class LineAxisManager : MonoBehaviour {
     }
 
 
-
-
-
     private void RenderFunction()
     {
 		int halfHeight = (height / 2);
@@ -156,31 +144,7 @@ public class LineAxisManager : MonoBehaviour {
 
         }
 
-
-
-
-
-        //old
-
-        /*for (int o = 0; o < height; o++)
-        {
-            Vector3 toRender = xAxis.GetPosition(o);
-            //toRender.y = 3 * (toRender.x * toRender.x);
-            toRender.y = Mathf.Cos(toRender.x);
-
-
-            Debug.Log(o);
-            Function.SetPosition(o, toRender);
-
-
-        }*/
-
     }
-
-
-
-
-    
 
 	// Use this for initialization
 	void Start () {
