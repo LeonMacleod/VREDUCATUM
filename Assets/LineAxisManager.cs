@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LineAxisManager : MonoBehaviour {
 
@@ -9,7 +10,12 @@ public class LineAxisManager : MonoBehaviour {
     public LineRenderer yAxis;
     public LineRenderer zAxis;
     public LineRenderer Function;
- 
+
+    private Vector3[] xPositions;
+    private Vector3[] yPositions;
+    private Vector3[] zPositions;
+
+    public TextMeshPro defaultLabel;
 
     private void RenderAxis()
     {
@@ -19,9 +25,9 @@ public class LineAxisManager : MonoBehaviour {
         yAxis.positionCount = height;
         zAxis.positionCount = height;
 
-        Vector3[] xPositions = new Vector3[height];
-        Vector3[] yPositions = new Vector3[height];
-        Vector3[] zPositions = new Vector3[height];
+        xPositions = new Vector3[height];
+        yPositions = new Vector3[height];
+        zPositions = new Vector3[height];
 
 
         xAxis.startColor = Color.red;
@@ -54,6 +60,57 @@ public class LineAxisManager : MonoBehaviour {
 
     }
 
+    private void RenderLabels()
+    {
+
+        int xPosCount = xAxis.positionCount;
+        int yPosCount = yAxis.positionCount;
+        int zPosCount = zAxis.positionCount;
+
+        //x axis
+        for (int i = 0; i < xPosCount; i++)
+        {
+            TextMeshPro labelx = defaultLabel;
+            labelx.transform.position = xPositions[i];
+
+            string positionTextx = xPositions[i].x.ToString();
+            labelx.text = positionTextx;
+
+            Instantiate(labelx, labelx.transform.position, labelx.transform.rotation);
+        }
+
+        //y axis
+        for (int i = 0; i < yPosCount; i++)
+        {
+
+            TextMeshPro labely = defaultLabel;
+            labely.transform.position = yPositions[i];
+
+            string positionTexty = yPositions[i].y.ToString();
+            labely.text = positionTexty;
+
+            Instantiate(labely, labely.transform.position, labely.transform.rotation);
+        }
+
+        //z axis
+        for (int i = 0; i < zPosCount; i++)
+        {
+
+            TextMeshPro labelz = defaultLabel;
+            labelz.transform.position = zPositions[i];
+
+            string positionTextz = zPositions[i].z.ToString();
+            labelz.text = positionTextz;
+
+            Instantiate(labelz, labelz.transform.position, labelz.transform.rotation);
+        }
+
+
+    }
+
+
+
+
 
     private void RenderFunction()
     {
@@ -61,9 +118,9 @@ public class LineAxisManager : MonoBehaviour {
 
         float increment = 0.1f;
         float incrementHeight = height / increment;
-        Debug.Log(incrementHeight);
-        Debug.Log(-(incrementHeight / 2));
-        Debug.Log(incrementHeight / 2);
+        //Debug.Log(incrementHeight);
+        //Debug.Log(-(incrementHeight / 2));
+        //Debug.Log(incrementHeight / 2);
 
         Function.positionCount = (int) incrementHeight;
 
@@ -76,11 +133,12 @@ public class LineAxisManager : MonoBehaviour {
         {
             incrementCounter += 1;
 
-            Debug.Log(" for position:" + i + " incrementcounter position: " + incrementCounter);
+            //Debug.Log(" for position:" + i + " incrementcounter position: " + incrementCounter);
   
 
             Vector3 toRender = new Vector3(i, 0, 0);
             toRender.y = 2 * Mathf.Cos(toRender.x);
+
 
             Function.SetPosition(incrementCounter, toRender);
 
@@ -109,10 +167,15 @@ public class LineAxisManager : MonoBehaviour {
 
 
 
+
+    
+
 	// Use this for initialization
 	void Start () {
         RenderAxis();
 		RenderFunction();
+
+        RenderLabels();
 	}
 	
 	// Update is called once per frame
