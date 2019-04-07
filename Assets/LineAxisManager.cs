@@ -16,8 +16,8 @@ public class LineAxisManager : MonoBehaviour {
     private Vector3[] zPositions;
 
     public TextMeshPro defaultLabel;
-    public TextMeshPro testLabel1;
-    public TextMeshPro testLabel5;
+    public TextMeshPro wholeIncrementLabel;
+    public TextMeshPro smallIncrementLabel;
 
     public float amplitude;
     public float yShift;
@@ -58,6 +58,46 @@ public class LineAxisManager : MonoBehaviour {
 
     }
 
+
+
+    private void RenderAxisLabel(int positionCount, float increment, Vector3 axisVector, float posXChange, float posYChange, float posZChange)
+    {
+        for (float i = -(positionCount / 2); i < (positionCount / 2); i += increment)
+        {
+            TextMeshPro AxisLabel;
+
+            float roundedi = (float)Mathf.Round(i * 100f) / 100f;
+
+            //returns true if i is a whole float or an exact half, these are the values I want to have a larger font size.
+            if ((roundedi % 1 == 0))
+            {
+                AxisLabel = wholeIncrementLabel;
+                AxisLabel.text = i.ToString("n0");
+
+            }
+            else
+            {
+                AxisLabel = smallIncrementLabel;
+                AxisLabel.text = i.ToString("n1");
+            }
+
+            Vector3 pos = axisVector * roundedi;
+            AxisLabel.transform.position = pos;
+
+            Vector3 newPos = AxisLabel.transform.position;
+            newPos.x += posXChange;
+            newPos.y += posYChange;
+            newPos.z += posZChange;
+
+
+            AxisLabel.transform.position = newPos;
+
+            Instantiate(AxisLabel, AxisLabel.transform.position, AxisLabel.transform.rotation);
+
+        }
+    }
+
+
     private void RenderLabels()
     {
 
@@ -65,103 +105,9 @@ public class LineAxisManager : MonoBehaviour {
         int yPosCount = yAxis.positionCount;
         int zPosCount = zAxis.positionCount;
 
-        //x axis
-        /*for (int i = 0; i < xPosCount; i++)
-        {
-            TextMeshPro labelx = defaultLabel;
-            labelx.transform.position = xPositions[i];
-
-            string positionTextx = xPositions[i].x.ToString();
-            labelx.text = positionTextx;
-
-            Vector3 newPos = labelx.transform.position;
-            newPos.y -= 0.25f;
-            labelx.transform.position = newPos;
-
-            Instantiate(labelx, labelx.transform.position, labelx.transform.rotation);
-        }*/
-
-        for (float i = -(xPosCount / 2); i < (xPosCount /2 ); i+= 0.1f)
-        {
-            TextMeshPro thisLabel;
-
-            float roundedi = (float)Mathf.Round(i * 100f) / 100f;
-
-            
-
-            float posYChange;
-            float posZChange;
-
-            //returns true if i is a whole float or an exact half, these are the values I want to have a larger font size.
-            if ((roundedi % 1 == 0))
-            {
-                thisLabel = testLabel5;
-                thisLabel.text = i.ToString("n0");
-                posYChange = -0.15f;
-                posZChange = 0f;
-
-            }
-            else
-            {
-                thisLabel = testLabel1;
-                thisLabel.text = i.ToString("n1");
-                posYChange = -0.15f;
-                posZChange = 0f;
-            }
-
-
-
-            Vector3 pos = new Vector3(roundedi, 0, 0);
-            thisLabel.transform.position = pos;
-
-
-
-            Vector3 newPos = thisLabel.transform.position;
-            newPos.y += posYChange;
-            newPos.z += posZChange;
-
-            thisLabel.transform.position = newPos;
-
-            Instantiate(thisLabel, thisLabel.transform.position, thisLabel.transform.rotation);
-           
-        }
-
-
-        //y axis
-        for (int i = 0; i < yPosCount; i++)
-        {
-
-            TextMeshPro labely = defaultLabel;
-            labely.transform.position = yPositions[i];
-
-            string positionTexty = yPositions[i].y.ToString();
-            labely.text = positionTexty;
-
-            Vector3 newPos = labely.transform.position;
-            newPos.x -= 0.25f;
-            labely.transform.position = newPos;
-
-            Instantiate(labely, labely.transform.position, labely.transform.rotation);
-        }
-
-        //z axis
-        for (int i = 0; i < zPosCount; i++)
-        {
-
-            TextMeshPro labelz = defaultLabel;
-            labelz.transform.position = zPositions[i];
-
-            string positionTextz = zPositions[i].z.ToString();
-            labelz.text = positionTextz;
-
-            Vector3 newPos = labelz.transform.position;
-            newPos.y -= 0.25f;
-            labelz.transform.position = newPos;
-
-            Instantiate(labelz, labelz.transform.position, labelz.transform.rotation);
-        }
-
-
+        RenderAxisLabel(xPosCount, 0.1f, Vector3.right, 0f, -0.15f, 0f);
+        RenderAxisLabel(yPosCount, 0.1f, Vector3.up, -0.15f, 0f, 0f);
+        RenderAxisLabel(zPosCount, 0.1f, Vector3.forward, 0f, -0.15f, 0f);
     }
 
 
