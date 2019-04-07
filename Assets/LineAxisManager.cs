@@ -16,7 +16,8 @@ public class LineAxisManager : MonoBehaviour {
     private Vector3[] zPositions;
 
     public TextMeshPro defaultLabel;
-
+    public TextMeshPro testLabel1;
+    public TextMeshPro testLabel5;
 
     public float amplitude;
     public float yShift;
@@ -65,7 +66,7 @@ public class LineAxisManager : MonoBehaviour {
         int zPosCount = zAxis.positionCount;
 
         //x axis
-        for (int i = 0; i < xPosCount; i++)
+        /*for (int i = 0; i < xPosCount; i++)
         {
             TextMeshPro labelx = defaultLabel;
             labelx.transform.position = xPositions[i];
@@ -78,7 +79,53 @@ public class LineAxisManager : MonoBehaviour {
             labelx.transform.position = newPos;
 
             Instantiate(labelx, labelx.transform.position, labelx.transform.rotation);
+        }*/
+
+        for (float i = -(xPosCount / 2); i < (xPosCount /2 ); i+= 0.1f)
+        {
+            TextMeshPro thisLabel;
+
+            float roundedi = (float)Mathf.Round(i * 100f) / 100f;
+
+            
+
+            float posYChange;
+            float posZChange;
+
+            //returns true if i is a whole float or an exact half, these are the values I want to have a larger font size.
+            if ((roundedi % 1 == 0))
+            {
+                thisLabel = testLabel5;
+                thisLabel.text = i.ToString("n0");
+                posYChange = -0.15f;
+                posZChange = 0f;
+
+            }
+            else
+            {
+                thisLabel = testLabel1;
+                thisLabel.text = i.ToString("n1");
+                posYChange = -0.15f;
+                posZChange = 0f;
+            }
+
+
+
+            Vector3 pos = new Vector3(roundedi, 0, 0);
+            thisLabel.transform.position = pos;
+
+
+
+            Vector3 newPos = thisLabel.transform.position;
+            newPos.y += posYChange;
+            newPos.z += posZChange;
+
+            thisLabel.transform.position = newPos;
+
+            Instantiate(thisLabel, thisLabel.transform.position, thisLabel.transform.rotation);
+           
         }
+
 
         //y axis
         for (int i = 0; i < yPosCount; i++)
