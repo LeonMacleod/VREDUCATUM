@@ -18,6 +18,7 @@ public class LineAxisManager : MonoBehaviour {
     public TextMeshPro defaultLabel;
     public TextMeshPro wholeIncrementLabel;
     public TextMeshPro smallIncrementLabel;
+    public TextMeshPro liveEquation;
 
     public float amplitude;
     public float yShift;
@@ -211,6 +212,10 @@ public class LineAxisManager : MonoBehaviour {
             B -= 0.25f;
             RenderFunction();
         }
+
+        //equation rendering
+
+        liveEquation.text = "y = " + amplitude.ToString("n2") + "Cos(" + B.ToString("n2") + "x + " + xShift.ToString("n2") + ") + " + yShift.ToString("n2");
 
 
 
