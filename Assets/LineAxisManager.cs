@@ -157,8 +157,33 @@ public class LineAxisManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //amplitude controller
+        float rightThumbStickAxisVertical = Input.GetAxis("VerticalThumbStickRight");
+        float leftThumbStickAxisHorizontal = Input.GetAxis("HorizontalThumbStickLeft");
+        float rightThumbStickAxisHorizontal = Input.GetAxis("HorizontalThumbStickRight");
+        float leftThumbStickAxisVertical = Input.GetAxis("VerticalThumbStickLeft");
 
+        amplitude += rightThumbStickAxisVertical;
+
+        Debug.Log(xShift.ToString());
+        xShift += leftThumbStickAxisHorizontal;
+        yShift += leftThumbStickAxisVertical;
+        B += rightThumbStickAxisHorizontal;
+
+
+        RenderFunction();
+
+
+
+
+
+
+
+
+
+        //amplitude controller
+        
+
+        /*
         if (Input.GetKey(KeyCode.Alpha1))
         {
             amplitude += 0.1f;
@@ -169,10 +194,11 @@ public class LineAxisManager : MonoBehaviour {
         {
             amplitude -= 0.1f;
             RenderFunction();
-        }
+        }*/
 
         //yShift controller
 
+        /*
         if (Input.GetKeyDown(KeyCode.Q))
         {
             yShift += 0.1f;
@@ -183,10 +209,11 @@ public class LineAxisManager : MonoBehaviour {
         {
             yShift -= 0.1f;
             RenderFunction();
-        }
+        }*/
 
         //xShift controller
 
+        /*
         if (Input.GetKeyDown(KeyCode.E))
         {
             xShift += 0.25f;
@@ -197,10 +224,11 @@ public class LineAxisManager : MonoBehaviour {
         {
             xShift -= 0.25f;
             RenderFunction();
-        }
+        }*/
 
         //cycles per 2pi controller
 
+        /*
         if (Input.GetKeyDown(KeyCode.A))
         {
             B += 0.25f;
@@ -211,7 +239,7 @@ public class LineAxisManager : MonoBehaviour {
         {
             B -= 0.25f;
             RenderFunction();
-        }
+        }*/
 
         //equation rendering
 
