@@ -25,6 +25,10 @@ public class LineAxisManager : MonoBehaviour {
     public float xShift;
     public float B = 1;
 
+
+
+    public float increment;
+
     private void RenderAxis()
     {
 
@@ -106,9 +110,9 @@ public class LineAxisManager : MonoBehaviour {
         int yPosCount = yAxis.positionCount;
         int zPosCount = zAxis.positionCount;
 
-        RenderAxisLabel(xPosCount, 0.1f, Vector3.right, 0f, -0.15f, 0f);
-        RenderAxisLabel(yPosCount, 0.1f, Vector3.up, -0.15f, 0f, 0f);
-        RenderAxisLabel(zPosCount, 0.1f, Vector3.forward, 0f, -0.15f, 0f);
+        RenderAxisLabel(xPosCount, increment, Vector3.right, 0f, -0.15f, 0f);
+        RenderAxisLabel(yPosCount, increment, Vector3.up, -0.15f, 0f, 0f);
+        RenderAxisLabel(zPosCount, increment, Vector3.forward, 0f, -0.15f, 0f);
     }
 
 

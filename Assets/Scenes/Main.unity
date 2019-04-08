@@ -1715,7 +1715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1dbc3292b73e8458cabcde79cfaa3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 19
+  height: 49
   xAxis: {fileID: 1397957863}
   yAxis: {fileID: 1092593445}
   zAxis: {fileID: 226746605}
@@ -1728,6 +1728,7 @@ MonoBehaviour:
   yShift: 0
   xShift: 0
   B: 1
+  increment: 0.1
 --- !u!4 &1808891606
 Transform:
   m_ObjectHideFlags: 0
