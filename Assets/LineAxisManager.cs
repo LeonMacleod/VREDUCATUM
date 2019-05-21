@@ -5,6 +5,9 @@ using TMPro;
 
 public class LineAxisManager : MonoBehaviour {
 
+    public GameObject equationManager;
+
+
     public int height;
     public LineRenderer xAxis;
     public LineRenderer yAxis;
@@ -156,6 +159,9 @@ public class LineAxisManager : MonoBehaviour {
 		
 
         RenderLabels();
+
+        //EquationManager.a
+        
 	}
 	
 	// Update is called once per frame
