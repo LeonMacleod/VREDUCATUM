@@ -13,10 +13,13 @@ public class EquationManager : MonoBehaviour
 
     public GameObject child;
 
+
+    // Outsourced to LineAxisManager.cs
+    
     public List<GameObject> coefficientsToManipulate;
     public int selectedCoefficientIndex;
     public GameObject selectedCoefficientGameobject;
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -25,23 +28,26 @@ public class EquationManager : MonoBehaviour
 
         equationCoefficients = new List<List<int>>();
         //EquationRender("y=Ax", new List<int> { 2 });
-        EquationRender("y=ACos(Bx)+c+0", new List<int> { 2, 7, 11 });
+        //EquationRender("y=ACos(Bx)+c+0", new List<int> { 2, 7, 11 });
         //EquationRender("y=3x^2", new List<int> { 3 });
         //EquationRender("y=Bx+C", new List<int> { 2, 5 });
-
-
-        
-
+        EquationRender("y=ACos(Bx)+c", new List<int> { 2, 7, 11 });
 
         coefficientsToManipulate = YieldCoefficients(0);
         selectedCoefficientIndex = -1;
-        
+
+
+
+
+
         //debug
+
+        /*
         foreach (GameObject coefficient in coefficientsToManipulate)
         {
             Debug.Log(coefficient.transform.parent.name);
 
-        }
+        }*/
     }
 
     public List<GameObject> YieldCoefficients(int uniqueIdentifier)
@@ -180,51 +186,54 @@ public class EquationManager : MonoBehaviour
 
     }
 
+
+    public void Right()
+    {
+        if (selectedCoefficientIndex < coefficientsToManipulate.Count - 1)
+        {
+            selectedCoefficientIndex += 1;
+            Debug.Log((coefficientsToManipulate.Count - 1).ToString() + "count and current selection " + selectedCoefficientIndex.ToString());
+            Debug.Log(coefficientsToManipulate[selectedCoefficientIndex].transform.parent.name);
+            clearColors(coefficientsToManipulate);
+            coefficientsToManipulate[selectedCoefficientIndex].transform.parent.gameObject.GetComponent<TextMeshPro>().color = Color.blue;
+        }
+    }
+
+    public void Left()
+    {
+        if (selectedCoefficientIndex > 0)
+        {
+            selectedCoefficientIndex -= 1;
+            Debug.Log((coefficientsToManipulate.Count - 1).ToString() + "count and current selection " + selectedCoefficientIndex.ToString());
+            Debug.Log(coefficientsToManipulate[selectedCoefficientIndex].transform.parent.name);
+            clearColors(coefficientsToManipulate);
+            coefficientsToManipulate[selectedCoefficientIndex].transform.parent.gameObject.GetComponent<TextMeshPro>().color = Color.blue;
+        }
+    }
+
+
+
     // Update is called once per frame
     void Update()
     {
+        LineAxisManager lm = new LineAxisManager();
 
-
-
-
-        //controller code goes here.
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-
-        }
-        
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if(selectedCoefficientIndex < coefficientsToManipulate.Count - 1)
-            {
-                selectedCoefficientIndex += 1;
-                Debug.Log((coefficientsToManipulate.Count - 1).ToString() + "count and current selection " + selectedCoefficientIndex.ToString());
-                Debug.Log(coefficientsToManipulate[selectedCoefficientIndex].transform.parent.name);
-                clearColors(coefficientsToManipulate);
-                coefficientsToManipulate[selectedCoefficientIndex].transform.parent.gameObject.GetComponent<TextMeshPro>().color = Color.blue;
-            }
+            Right();
+
+
 
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if(selectedCoefficientIndex > 0)
-            {
-                selectedCoefficientIndex -= 1;
-                Debug.Log((coefficientsToManipulate.Count - 1).ToString() + "count and current selection " + selectedCoefficientIndex.ToString());
-                Debug.Log(coefficientsToManipulate[selectedCoefficientIndex].transform.parent.name);
-                clearColors(coefficientsToManipulate);
-                coefficientsToManipulate[selectedCoefficientIndex].transform.parent.gameObject.GetComponent<TextMeshPro>().color = Color.blue;
-            }
+            Left();
         }
+
+        
+
 
 
 

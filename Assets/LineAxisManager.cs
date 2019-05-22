@@ -23,12 +23,14 @@ public class LineAxisManager : MonoBehaviour {
     public TextMeshPro smallIncrementLabel;
     public TextMeshPro liveEquation;
 
+
+    //for y=ACos(Bx)+c+0
     public float amplitude;
     public float yShift;
-    public float xShift;
+    //public float xShift;
     public float B = 1;
 
-
+    public static EquationManager eM;
 
     public float increment;
 
@@ -144,7 +146,9 @@ public class LineAxisManager : MonoBehaviour {
   
 
             Vector3 toRender = new Vector3(i, 0, 0);
-            toRender.y = amplitude * Mathf.Cos(B * i + xShift) + yShift;
+            //equation definited in EquationManager y=ACos(Bx)+c
+            
+            toRender.y = amplitude * Mathf.Cos(B * i ) + yShift;
 
 
             Function.SetPosition(incrementCounter, toRender);
@@ -160,30 +164,42 @@ public class LineAxisManager : MonoBehaviour {
 
         RenderLabels();
 
-        //EquationManager.a
-        
-	}
+
+        eM = new EquationManager();
+
+
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
         float rightThumbStickAxisVertical = Input.GetAxis("VerticalThumbStickRight");
+        /*
         float leftThumbStickAxisHorizontal = Input.GetAxis("HorizontalThumbStickLeft");
         float rightThumbStickAxisHorizontal = Input.GetAxis("HorizontalThumbStickRight");
         float leftThumbStickAxisVertical = Input.GetAxis("VerticalThumbStickLeft");
+        */
 
-        amplitude += rightThumbStickAxisVertical;
 
-        Debug.Log(xShift.ToString());
-        xShift += leftThumbStickAxisHorizontal;
-        yShift += leftThumbStickAxisVertical;
-        B += rightThumbStickAxisHorizontal;
+
 
 
         RenderFunction();
+        /*
 
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            eM.Right();
 
+        }
 
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            eM.Left();
+        }
+
+        */
 
 
 
@@ -191,7 +207,7 @@ public class LineAxisManager : MonoBehaviour {
 
 
         //amplitude controller
-        
+
 
         /*
         if (Input.GetKey(KeyCode.Alpha1))
@@ -253,7 +269,7 @@ public class LineAxisManager : MonoBehaviour {
 
         //equation rendering
 
-        liveEquation.text = "y = " + amplitude.ToString("n2") + "Cos(" + B.ToString("n2") + "x + " + xShift.ToString("n2") + ") + " + yShift.ToString("n2");
+        //liveEquation.text = "y = " + amplitude.ToString("n2") + "Cos(" + B.ToString("n2") + "x + " + xShift.ToString("n2") + ") + " + yShift.ToString("n2");
 
 
 
