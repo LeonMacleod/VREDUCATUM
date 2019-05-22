@@ -19,8 +19,8 @@ public class EquationManager : MonoBehaviour
     public List<GameObject> coefficientsToManipulate;
     public int selectedCoefficientIndex;
     public GameObject selectedCoefficientGameobject;
-    
 
+    public GameObject currentSelection;
     // Start is called before the first frame update
     void Start()
     {
@@ -192,6 +192,7 @@ public class EquationManager : MonoBehaviour
         if (selectedCoefficientIndex < coefficientsToManipulate.Count - 1)
         {
             selectedCoefficientIndex += 1;
+            currentSelection.name = selectedCoefficientIndex.ToString();
             Debug.Log((coefficientsToManipulate.Count - 1).ToString() + "count and current selection " + selectedCoefficientIndex.ToString());
             Debug.Log(coefficientsToManipulate[selectedCoefficientIndex].transform.parent.name);
             clearColors(coefficientsToManipulate);
@@ -204,6 +205,7 @@ public class EquationManager : MonoBehaviour
         if (selectedCoefficientIndex > 0)
         {
             selectedCoefficientIndex -= 1;
+            currentSelection.name = selectedCoefficientIndex.ToString();
             Debug.Log((coefficientsToManipulate.Count - 1).ToString() + "count and current selection " + selectedCoefficientIndex.ToString());
             Debug.Log(coefficientsToManipulate[selectedCoefficientIndex].transform.parent.name);
             clearColors(coefficientsToManipulate);
@@ -232,6 +234,10 @@ public class EquationManager : MonoBehaviour
             Left();
         }
 
+
+
+
+        
         
 
 
