@@ -395,14 +395,14 @@ public class LineAxisManager : MonoBehaviour {
 
         if(selectedCoefficientIndex == 1)
         {
-            yShift += 1f;
-            coefficientsToManipulate[selectedCoefficientIndex].transform.parent.GetComponent<TextMeshPro>().text = yShift.ToString();
+            B += 1f;
+            coefficientsToManipulate[selectedCoefficientIndex].transform.parent.GetComponent<TextMeshPro>().text = B.ToString();
         }
 
         if (selectedCoefficientIndex == 2)
         {
-            B += 1f;
-            coefficientsToManipulate[selectedCoefficientIndex].transform.parent.GetComponent<TextMeshPro>().text = B.ToString();
+            yShift += 1f;
+            coefficientsToManipulate[selectedCoefficientIndex].transform.parent.GetComponent<TextMeshPro>().text = yShift.ToString();
         }
 
     }
@@ -417,14 +417,14 @@ public class LineAxisManager : MonoBehaviour {
 
         if (selectedCoefficientIndex == 1)
         {
-            yShift -= 1f;
-            coefficientsToManipulate[selectedCoefficientIndex].transform.parent.GetComponent<TextMeshPro>().text = yShift.ToString();
+            B -= 1f;
+            coefficientsToManipulate[selectedCoefficientIndex].transform.parent.GetComponent<TextMeshPro>().text = B.ToString();
         }
 
         if (selectedCoefficientIndex == 2)
         {
-            B -= 1f;
-            coefficientsToManipulate[selectedCoefficientIndex].transform.parent.GetComponent<TextMeshPro>().text = B.ToString();
+            yShift -= 1f;
+            coefficientsToManipulate[selectedCoefficientIndex].transform.parent.GetComponent<TextMeshPro>().text = yShift.ToString();
         }
 
     }
