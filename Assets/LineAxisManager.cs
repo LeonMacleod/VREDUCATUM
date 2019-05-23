@@ -61,6 +61,9 @@ public class LineAxisManager : MonoBehaviour {
 
     public float increment;
 
+    private float latestAxisHor;
+    private float latestAxisVer;
+
     private void RenderAxis()
     {
 
@@ -478,8 +481,16 @@ public class LineAxisManager : MonoBehaviour {
 
 
 
+        
+        float horRightThumb = Input.GetAxis("HorizontalThumbStickRight");
+        if(horRightThumb != 0)
+        {
+            latestAxisHor = horRightThumb;
+        }
+        Debug.Log(horRightThumb.ToString());
 
-
+        float verRightThumb = Input.GetAxis("VerticalThumbStickRight");
+        Debug.Log(verRightThumb.ToString());
 
 
 
