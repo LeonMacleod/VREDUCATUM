@@ -50,7 +50,10 @@ public class LineAxisManager : MonoBehaviour {
     public List<TextMeshPro> coefficients;
 
 
-
+    public bool rightKey;
+    public bool leftKey;
+    public bool upKey;
+    public bool downKey;
 
     //for y=ACos(Bx)+c+0
     public float amplitude;
@@ -347,9 +350,10 @@ public class LineAxisManager : MonoBehaviour {
 
         //eM = new EquationManager();
 
-
-
-
+        rightKey = false;
+        leftKey = false;
+        upKey = false;
+        downKey = false;
 
 
         // StartCoroutine(Wait());
@@ -432,10 +436,50 @@ public class LineAxisManager : MonoBehaviour {
 
     }
 
-    // Update is called once per frame
-    void Update () {
 
-        
+    IEnumerator InputWaitTimeRight() { 
+
+
+        yield return new WaitForSeconds(0.15f);
+        rightKey = false;
+
+    }
+
+    IEnumerator InputWaitTimeLeft()
+    {
+
+
+        yield return new WaitForSeconds(0.15f);
+        leftKey = false;
+
+    }
+
+    IEnumerator InputWaitTimeUp()
+    {
+
+
+        yield return new WaitForSeconds(0.1f);
+        upKey = false;
+
+    }
+
+    IEnumerator InputWaitTimeDown()
+    {
+
+
+        yield return new WaitForSeconds(0.1f);
+        downKey = false;
+
+    }
+
+
+
+
+
+    // Update is called once per frame
+    void Update() {
+
+
 
 
         float rightThumbStickAxisVertical = Input.GetAxis("VerticalThumbStickRight");
@@ -454,6 +498,32 @@ public class LineAxisManager : MonoBehaviour {
 
         RenderFunction();
 
+
+
+        if (rightThumbStickAxisVertical > 0.8f)
+        {
+            if (upKey == false)
+            {
+                Up();
+                upKey = true;
+                StartCoroutine(InputWaitTimeUp());
+
+            }
+        }
+
+        if (rightThumbStickAxisVertical < -0.8f )
+        {
+            if (downKey == false)
+            {
+                Down();
+                downKey = true;
+                StartCoroutine(InputWaitTimeDown());
+
+            }
+        }
+
+
+        /*
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             Right();
@@ -477,12 +547,36 @@ public class LineAxisManager : MonoBehaviour {
         {
             Down();
         }
+        */
 
 
 
 
-        
         float horRightThumb = Input.GetAxis("HorizontalThumbStickRight");
+
+        if(horRightThumb == 1)
+        {
+            if(rightKey == false)
+            {
+                Right();
+                rightKey = true;
+                StartCoroutine(InputWaitTimeRight());
+
+            }
+            
+        }
+
+        if(horRightThumb == -1)
+        {
+            if(leftKey == false)
+            {
+                Left();
+                leftKey = true;
+                StartCoroutine(InputWaitTimeLeft());
+            }
+        }
+
+
         if(horRightThumb != 0)
         {
             latestAxisHor = horRightThumb;
