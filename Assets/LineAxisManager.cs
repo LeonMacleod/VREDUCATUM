@@ -6,6 +6,7 @@ using TMPro;
 public class LineAxisManager : MonoBehaviour {
 
 
+
     public TextMeshPro coefficientPrefab;
     public GameObject emptyEquation;
     public GameObject equationIdentifier;
@@ -135,6 +136,7 @@ public class LineAxisManager : MonoBehaviour {
 
             AxisLabel.transform.position = newPos;
 
+            //Instantiate(AxisLabel, this.gameObject.transform.position, this.gameObject.transform.rotation);
             Instantiate(AxisLabel, AxisLabel.transform.position, AxisLabel.transform.rotation);
 
         }
@@ -208,7 +210,7 @@ public class LineAxisManager : MonoBehaviour {
     }
 
 
-    public void EquationRender(string equation, List<int> coefficients)
+    public void EquationRender(string equation, List<int> coefficients /*Vector3 position*/)
     {
         // adding this equations coefficients to the equationCoefficients public list of lists (coefficients),
         // this will be used to uniquely identify the equations coefficients by its index within this public list of lists.
@@ -227,6 +229,8 @@ public class LineAxisManager : MonoBehaviour {
         GameObject instantiatedEquationHolder = (GameObject)Instantiate(equationHolder, this.transform);
         // .count returns the length of elements E.g. [1,2,3] has a count of 2 but if I were to index 2 I would get '3' this '-1' ensures the count returns exactly what it index's.
         instantiatedEquationHolder.name = equation;
+
+        //instantiatedEquationHolder.GetComponent<TextMeshPro>().
         //instantiatedEquationHolder.GetComponent<TextMeshPro>()
 
 
