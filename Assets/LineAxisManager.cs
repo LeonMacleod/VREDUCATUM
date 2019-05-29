@@ -227,6 +227,7 @@ public class LineAxisManager : MonoBehaviour {
         GameObject instantiatedEquationHolder = (GameObject)Instantiate(equationHolder, this.transform);
         // .count returns the length of elements E.g. [1,2,3] has a count of 2 but if I were to index 2 I would get '3' this '-1' ensures the count returns exactly what it index's.
         instantiatedEquationHolder.name = equation;
+        //instantiatedEquationHolder.GetComponent<TextMeshPro>()
 
 
         // Each character is split up into its own TextMeshPro element (thisEquatinPart) and eventually instantiated under the equationHolder (specified above).
