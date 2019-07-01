@@ -16,6 +16,8 @@ public class Gazer : MonoBehaviour
 
     private RaycastHit lastHit;
 
+    public GameObject currentSelection;
+
 
 
 
@@ -25,19 +27,21 @@ public class Gazer : MonoBehaviour
     {
 
         lastHit = new RaycastHit();
-        //All selectable scene objects
+        //All selectable scene objects 
         sceneSelectObjects = GameObject.FindGameObjectsWithTag("sceneselectobject");
 
 
         // this is required to ensure the forest menu item doesn't reduce to nothing.
-        normalScale = forest.transform.localScale;
+        normalScale = new Vector3(1.5f, 1.5f, 1.5f);
 
-        levelSelectThreshold = 2.5f;
+        // If the scale of a scene selection object (magnitude of local scale vector) becomes greater than this the player will transition to the scene.
+        levelSelectThreshold = 3.25f;
     }
 
 
     private void ScaleUp(GameObject toScale, Vector3 localScaleNormal)
     {
+        //Scaling up the object
 
         Vector3 thisScale = toScale.transform.localScale;
         thisScale += localScaleNormal * 0.0025f;
@@ -47,15 +51,17 @@ public class Gazer : MonoBehaviour
 
     private void ScaleDown(GameObject toScale, Vector3 localScaleNormal)
     {
+        //Scaling down the object but logic is included to ensure the object doesn't become smaller
+        //than the localScalNormal (smallest it can be)
         Vector3 thisScale = toScale.transform.localScale;
         if (thisScale.magnitude <= localScaleNormal.magnitude)
         {
-            forest.transform.localScale = localScaleNormal;
+         toScale.transform.localScale = localScaleNormal;
         }
         else
         {
             thisScale -= 0.01f * localScaleNormal ;
-            forest.transform.localScale = thisScale;
+            toScale.transform.localScale = thisScale;
         }
     }
 
@@ -70,23 +76,19 @@ public class Gazer : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
         {
 
-            //Scaling the menu item up as the raycast hits
-            /*
-            Vector3 lScale = forest.transform.localScale;
-            lScale += forestNormalScale * 0.0025f;
-            forest.transform.localScale = lScale;
-            */
 
+            //Scaling up the object while the raycast is hitting the scene selector
             ScaleUp(hit.collider.gameObject, normalScale);
 
             // if the object gets big enough the user will transition to the scene they are sleecting
-            /*
-            if(forest.transform.localScale.magnitude >= levelSelectThreshold)
+            if(hit.collider.gameObject.transform.localScale.magnitude >= levelSelectThreshold)
             {
-                Debug.Log(forest.transform.localScale.magnitude.ToString() + " is of the threshold");
+
+                //The name of the object the ray is hitting is used to load the scene therefore when setting up new objects to navigate
+                // to new scenes the name of these objects must be the name of the scene it is transitioning to. (along with appropriate tags)
                 SceneManager.LoadScene(hit.collider.gameObject.name);
             }
-            */
+            
 
             lastHit = hit;
         }
@@ -95,29 +97,17 @@ public class Gazer : MonoBehaviour
 
 
             // If the user looks away from the menu item it will get smaller and smaller before returning to its original state.
+
             foreach (GameObject item in sceneSelectObjects)
             {
                 ScaleDown(item, normalScale);
                 Debug.Log("scaled down " + item.name);
 
             }
-                
 
-
-            /*
-            Vector3 lScale = forest.transform.localScale;
-            if(lScale.magnitude <= forestNormalScale.magnitude)
-            {
-                forest.transform.localScale = forestNormalScale;
-            }
-            else
-            {
-                lScale -= 0.01f * forestNormalScale;
-                forest.transform.localScale = lScale;
-            }
-            */
-            
         }
+
+        
 
     }
 }
