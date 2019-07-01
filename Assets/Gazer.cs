@@ -101,8 +101,6 @@ public class Gazer : MonoBehaviour
             foreach (GameObject item in sceneSelectObjects)
             {
                 ScaleDown(item, normalScale);
-                Debug.Log("scaled down " + item.name);
-
             }
 
         }
