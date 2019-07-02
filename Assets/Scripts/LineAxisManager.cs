@@ -42,6 +42,8 @@ public class LineAxisManager : MonoBehaviour {
     public TextMeshPro smallIncrementLabel;
     public TextMeshPro liveEquation;
 
+    public GameObject labels;
+
     public TextMeshPro amplitudeGO;
     public TextMeshPro yShiftGO;
     public TextMeshPro BGO;
@@ -137,7 +139,7 @@ public class LineAxisManager : MonoBehaviour {
             AxisLabel.transform.position = newPos;
 
             //Instantiate(AxisLabel, this.gameObject.transform.position, this.gameObject.transform.rotation);
-            Instantiate(AxisLabel, AxisLabel.transform.position, AxisLabel.transform.rotation);
+            Instantiate(AxisLabel, AxisLabel.transform.position, AxisLabel.transform.rotation, labels.transform);
 
         }
     }
