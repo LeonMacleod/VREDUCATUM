@@ -231,9 +231,10 @@ public class LineAxisManager : MonoBehaviour {
         GameObject instantiatedEquationHolder = (GameObject)Instantiate(equationHolder, this.transform);
         // .count returns the length of elements E.g. [1,2,3] has a count of 2 but if I were to index 2 I would get '3' this '-1' ensures the count returns exactly what it index's.
         instantiatedEquationHolder.name = equation;
-        instantiatedEquationHolder.transform.position = new Vector3(-4.5f, -17.9f, -12.6f);
+        instantiatedEquationHolder.transform.position = new Vector3(-1.3f, -25.2f, -6.5f);
         Quaternion parsedRotation = Quaternion.Euler(30, 0, 0);
         instantiatedEquationHolder.transform.rotation = parsedRotation;
+        instantiatedEquationHolder.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
         //instantiatedEquationHolder.GetComponent<TextMeshPro>().
         //instantiatedEquationHolder.GetComponent<TextMeshPro>()
