@@ -212,7 +212,7 @@ public class LineAxisManager : MonoBehaviour {
     }
 
 
-    public void EquationRender(string equation, List<int> coefficients /*Vector3 position*/)
+    public void EquationRender(string equation, List<int> coefficients ,Vector3 position, Vector3 localScale)
     {
         // adding this equations coefficients to the equationCoefficients public list of lists (coefficients),
         // this will be used to uniquely identify the equations coefficients by its index within this public list of lists.
@@ -231,10 +231,10 @@ public class LineAxisManager : MonoBehaviour {
         GameObject instantiatedEquationHolder = (GameObject)Instantiate(equationHolder, this.transform);
         // .count returns the length of elements E.g. [1,2,3] has a count of 2 but if I were to index 2 I would get '3' this '-1' ensures the count returns exactly what it index's.
         instantiatedEquationHolder.name = equation;
-        instantiatedEquationHolder.transform.position = new Vector3(-1.3f, -25.2f, -6.5f);
+        instantiatedEquationHolder.transform.position = position; 
         Quaternion parsedRotation = Quaternion.Euler(30, 0, 0);
         instantiatedEquationHolder.transform.rotation = parsedRotation;
-        instantiatedEquationHolder.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        instantiatedEquationHolder.transform.localScale = localScale;
 
         //instantiatedEquationHolder.GetComponent<TextMeshPro>().
         //instantiatedEquationHolder.GetComponent<TextMeshPro>()
@@ -354,7 +354,7 @@ public class LineAxisManager : MonoBehaviour {
         //EquationRender("y=ACos(Bx)+c+0", new List<int> { 2, 7, 11 });
         //EquationRender("y=3x^2", new List<int> { 3 });
         //EquationRender("y=Bx+C", new List<int> { 2, 5 });
-        EquationRender("y=ACos(Bx)+c", new List<int> { 2, 7, 11 });
+        EquationRender("y=ACos(Bx)+c", new List<int> { 2, 7, 11 }, new Vector3(-1.3f, -25.2f, -6.5f), new Vector3(0.25f, 0.25f, 0.25f));
 
         coefficientsToManipulate = YieldCoefficients(0);
         selectedCoefficientIndex = -1;
