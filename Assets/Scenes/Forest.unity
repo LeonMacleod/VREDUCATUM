@@ -7028,9 +7028,12 @@ MonoBehaviour:
     type: 3}
   marginIncrement: 2.5
   child: {fileID: 0}
-  coefficientsToManipulate: []
-  selectedCoefficientIndex: 0
-  selectedCoefficientGameobject: {fileID: 0}
+  coefficientsToManipulate0: []
+  selectedCoefficientIndex0: 0
+  selectedCoefficientGameobject0: {fileID: 0}
+  coefficientsToManipulate1: []
+  selectedCoefficientIndex1: 0
+  selectedCoefficientGameobject1: {fileID: 0}
   currentSelection: {fileID: 0}
   equationManager: {fileID: 1866910289}
   height: 49
@@ -7053,7 +7056,9 @@ MonoBehaviour:
   downKey: 0
   amplitude: 0
   yShift: 0
-  B: 1
+  B: 0
+  m: 0
+  c: 0
   increment: 0.1
 --- !u!4 &1808891606
 Transform:

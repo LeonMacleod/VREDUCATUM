@@ -18,9 +18,19 @@ public class LineAxisManager : MonoBehaviour {
 
     // Outsourced to LineAxisManager.cs
 
-    public List<GameObject> coefficientsToManipulate;
-    public int selectedCoefficientIndex;
-    public GameObject selectedCoefficientGameobject;
+    //equation 1
+
+    public List<GameObject> coefficientsToManipulate0;
+    public int selectedCoefficientIndex0;
+    public GameObject selectedCoefficientGameobject0;
+
+    //equation 2
+
+    public List<GameObject> coefficientsToManipulate1;
+    public int selectedCoefficientIndex1;
+    public GameObject selectedCoefficientGameobject1;
+
+
 
     public GameObject currentSelection;
 
@@ -62,6 +72,10 @@ public class LineAxisManager : MonoBehaviour {
     public float amplitude;
     public float yShift;
     public float B = 1;
+
+    //for y=Mx+c
+    public float m;
+    public float c;
 
     public static EquationManager eM;
 
@@ -158,7 +172,7 @@ public class LineAxisManager : MonoBehaviour {
     }
 
 
-    public void RenderFunction()
+    public void RenderFunction(string function)
     {
         int halfHeight = (height / 2);
 
@@ -181,11 +195,20 @@ public class LineAxisManager : MonoBehaviour {
 
             //Debug.Log(" for position:" + i + " incrementcounter position: " + incrementCounter);
 
-
             Vector3 toRender = new Vector3(i, 0, 0);
-            //equation definited in EquationManager y=ACos(Bx)+c
 
-            toRender.y = amplitude * Mathf.Cos(B * i) + yShift;
+            if (function == "y=ACos(Bx)+c")
+            {
+                toRender.y = amplitude * Mathf.Cos(B * i) + yShift;
+            }
+
+            if (function == "y=Mx+c")
+            {
+                toRender.y = m * i + c;
+            }
+
+            
+            //equation definited in EquationManager y=ACos(Bx)+c
 
 
             Function.SetPosition(incrementCounter, toRender);
@@ -194,10 +217,10 @@ public class LineAxisManager : MonoBehaviour {
 
     }
 
-    public string ListToString(List<int> list)
+    public string ListToString(List<GameObject> list)
     {
         string start = "";
-        foreach (int item in list)
+        foreach (GameObject item in list)
         {
             start += item.ToString() + ",";
         }
@@ -355,9 +378,15 @@ public class LineAxisManager : MonoBehaviour {
         //EquationRender("y=3x^2", new List<int> { 3 });
         //EquationRender("y=Bx+C", new List<int> { 2, 5 });
         EquationRender("y=ACos(Bx)+c", new List<int> { 2, 7, 11 }, new Vector3(-1.3f, -25.2f, -6.5f), new Vector3(0.25f, 0.25f, 0.25f));
+        //EquationRender("y=Mx+c", new List<int> { 2, 5 }, new Vector3(-10f, -25.2f, -6.5f), new Vector3(0.25f, 0.25f, 0.25f));
 
-        coefficientsToManipulate = YieldCoefficients(0);
-        selectedCoefficientIndex = -1;
+        coefficientsToManipulate0 = YieldCoefficients(0);
+        selectedCoefficientIndex0 = -1;
+
+        ListToString(coefficientsToManipulate0); 
+
+        coefficientsToManipulate1 = YieldCoefficients(1);
+        selectedCoefficientIndex1 = -1;
 
         //eM = new EquationManager();
 
@@ -377,8 +406,12 @@ public class LineAxisManager : MonoBehaviour {
 
 
 
-    public void Right()
+    public void Right(List<GameObject> coefficientsToManipulate, int selectedCoefficientIndex, GameObject selectedCoefficientGameobject)
     {
+
+        
+
+
         if (selectedCoefficientIndex < coefficientsToManipulate.Count - 1)
         {
             selectedCoefficientIndex += 1;
@@ -390,7 +423,7 @@ public class LineAxisManager : MonoBehaviour {
         }
     }
 
-    public void Left()
+    public void Left(List<GameObject> coefficientsToManipulate, int selectedCoefficientIndex, GameObject selectedCoefficientGameobject)
     {
         if (selectedCoefficientIndex > 0)
         {
@@ -403,7 +436,7 @@ public class LineAxisManager : MonoBehaviour {
         }
     }
 
-    public void Up()
+    public void Up(List<GameObject> coefficientsToManipulate, int selectedCoefficientIndex, GameObject selectedCoefficientGameobject)
     {
         if(selectedCoefficientIndex == 0)
         {
@@ -425,7 +458,7 @@ public class LineAxisManager : MonoBehaviour {
 
     }
 
-    public void Down()
+    public void Down(List<GameObject> coefficientsToManipulate, int selectedCoefficientIndex, GameObject selectedCoefficientGameobject)
     {
         if (selectedCoefficientIndex == 0)
         {
@@ -493,7 +526,7 @@ public class LineAxisManager : MonoBehaviour {
 
 
 
-        float rightThumbStickAxisVertical = Input.GetAxis("VerticalThumbStickRight");
+        //float rightThumbStickAxisVertical = Input.GetAxis("VerticalThumbStickRight");
         /*
         float leftThumbStickAxisHorizontal = Input.GetAxis("HorizontalThumbStickLeft");
         float rightThumbStickAxisHorizontal = Input.GetAxis("HorizontalThumbStickRight");
@@ -505,17 +538,18 @@ public class LineAxisManager : MonoBehaviour {
 
 
 
+        
+
+        RenderFunction("y=ACos(Bx)+c");
+        //RenderFunction("y=Mx+c");
 
 
-        RenderFunction();
-
-
-
+        /*
         if (rightThumbStickAxisVertical > 0.8f)
         {
             if (upKey == false)
             {
-                Up();
+                Up(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
                 upKey = true;
                 StartCoroutine(InputWaitTimeUp());
 
@@ -526,18 +560,19 @@ public class LineAxisManager : MonoBehaviour {
         {
             if (downKey == false)
             {
-                Down();
+                Down(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
                 downKey = true;
                 StartCoroutine(InputWaitTimeDown());
 
             }
         }
+        */
 
 
-        /*
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Right();
+            Right(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
 
 
 
@@ -545,22 +580,22 @@ public class LineAxisManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            Left();
+            Left(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
         }
 
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Up();
+            Up(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Down();
+            Down(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
         }
-        */
+  
 
-
+        /*
 
 
         float horRightThumb = Input.GetAxis("HorizontalThumbStickRight");
@@ -569,7 +604,7 @@ public class LineAxisManager : MonoBehaviour {
         {
             if(rightKey == false)
             {
-                Right();
+                Right(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
                 rightKey = true;
                 StartCoroutine(InputWaitTimeRight());
 
@@ -581,7 +616,7 @@ public class LineAxisManager : MonoBehaviour {
         {
             if(leftKey == false)
             {
-                Left();
+                Left(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
                 leftKey = true;
                 StartCoroutine(InputWaitTimeLeft());
             }
@@ -597,7 +632,7 @@ public class LineAxisManager : MonoBehaviour {
         float verRightThumb = Input.GetAxis("VerticalThumbStickRight");
         Debug.Log(verRightThumb.ToString());
 
-
+    */
 
 
 
