@@ -383,10 +383,10 @@ public class LineAxisManager : MonoBehaviour {
         coefficientsToManipulate0 = YieldCoefficients(0);
         selectedCoefficientIndex0 = -1;
 
-        ListToString(coefficientsToManipulate0); 
+        //ListToString(coefficientsToManipulate0); 
 
-        coefficientsToManipulate1 = YieldCoefficients(1);
-        selectedCoefficientIndex1 = -1;
+        //coefficientsToManipulate1 = YieldCoefficients(1);
+        //electedCoefficientIndex1 = -1;
 
         //eM = new EquationManager();
 
@@ -409,8 +409,13 @@ public class LineAxisManager : MonoBehaviour {
     public void Right(List<GameObject> coefficientsToManipulate, int selectedCoefficientIndex, GameObject selectedCoefficientGameobject)
     {
 
-        
+        Debug.Log("HERE");
 
+        foreach  (GameObject item in coefficientsToManipulate)
+        {
+            Debug.Log(item.name);
+
+        }
 
         if (selectedCoefficientIndex < coefficientsToManipulate.Count - 1)
         {
@@ -540,7 +545,7 @@ public class LineAxisManager : MonoBehaviour {
 
         
 
-        RenderFunction("y=ACos(Bx)+c");
+        
         //RenderFunction("y=Mx+c");
 
 
@@ -573,7 +578,7 @@ public class LineAxisManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             Right(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
-
+            StartCoroutine(InputWaitTimeRight());
 
 
         }
@@ -581,19 +586,22 @@ public class LineAxisManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             Left(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
+            StartCoroutine(InputWaitTimeLeft());
         }
 
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             Up(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
+            StartCoroutine(InputWaitTimeUp());
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             Down(coefficientsToManipulate0, selectedCoefficientIndex0, selectedCoefficientGameobject0);
+            StartCoroutine(InputWaitTimeDown());
         }
-  
+
 
         /*
 
@@ -635,7 +643,7 @@ public class LineAxisManager : MonoBehaviour {
     */
 
 
-
+        RenderFunction("y=ACos(Bx)+c");
 
 
 
